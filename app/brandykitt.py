@@ -5,6 +5,7 @@ import argparse
 import re
 from dotenv import load_dotenv
 
+MAX_SUBJECT_LENGTH = 32
 
 def main():
     parser = argparse.ArgumentParser()
@@ -12,10 +13,15 @@ def main():
     args = parser.parse_args()
     user_input = args.input
 
-    branding_result = generate_branding_snippet(user_input)
-    keywords_result = generate_keywords(user_input)
-    print(branding_result)
-    print(keywords_result)
+    if validate_length(user_input):
+        generate_branding_snippet(user_input)
+        generate_keywords(user_input)
+    else:
+        raise ValueError(f"Your input must not exceed {MAX_SUBJECT_LENGTH} characters")
+
+
+def validate_length(subject: str) -> bool:
+    return len(subject) <= MAX_SUBJECT_LENGTH
 
 
 def generate_branding_snippet(subject: str) -> str:
@@ -36,6 +42,7 @@ def generate_branding_snippet(subject: str) -> str:
     if last_char not in {".", "!", "?"}:
         branding_text += "..."
 
+    print(f"Branding_Text: {branding_text}")
     return branding_text
 
 
@@ -54,6 +61,7 @@ def generate_keywords(subject: str) -> List[str]:
     keywordsList = re.split(",|-|\n", keywords_text)
     keywordsList = [k.lower().strip() for k in keywordsList if len(k) > 0]
 
+    print(f"Branding_Keywords: {keywordsList}")
     return keywordsList
 
 

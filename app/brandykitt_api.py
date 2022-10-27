@@ -1,11 +1,12 @@
+from cgitb import handler
 from fastapi import FastAPI, HTTPException
 from brandykitt import generate_branding_snippet, generate_keywords
-# from dotenv import load_dotenv
+from mangum import Mangum 
 
-# load_dotenv()
 
 app = FastAPI()
 MAX_SUBJECT_LENGTH = 32
+handler = Mangum(app)
 
 # @app.get("/generate_snippet")
 # async def generate_snippet(subject: str):

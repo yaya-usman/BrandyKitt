@@ -20,4 +20,4 @@ RUN  pip install -r requirements.txt -t ./python
 
 #zip it up for deployment
 RUN  zip -r layer.zip ./python/
-ENTRYPOINT [ "/bin/bash", "-l" ]  
+ENTRYPOINT [ "/bin/sh", "-l" ] 

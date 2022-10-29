@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
 import * as dotenv from 'dotenv';
 import { Duration } from 'aws-cdk-lib';
 
@@ -25,5 +26,15 @@ export class BrandykittAwsInfraStack extends cdk.Stack {
       },
       timeout: Duration.seconds(30),
     });
+    
+    // create the actual api
+    const brandykittApi = new apiGateway.RestApi(this, 'BrandyKittApi',{
+      restApiName: "BrandyKitt Api"
+    })
+
+    // integrate lambda and and add proxy so api gateway doesn't fully process the incoming request and just pass onto the lambda function to handle
+    brandykittApi.root.addProxy({
+      defaultIntegration: new apiGateway.LambdaIntegration(apiLambda)
+    })
   }
 }

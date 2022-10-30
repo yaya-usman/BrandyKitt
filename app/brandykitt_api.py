@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
-MAX_SUBJECT_LENGTH = 32
+MAX_PROMPT_LENGTH = 32
 handler = Mangum(app)
 
 app.add_middleware(
@@ -18,15 +18,15 @@ app.add_middleware(
 )
 
 @app.get("/generate_snippet_keywords")
-async def generate_snippet_keywords(subject: str):
-    validate_input_length(subject)
-    snippet = generate_branding_snippet(subject)
-    keywords = generate_keywords(subject)
+async def generate_snippet_keywords(prompt: str):
+    validate_input_length(prompt)
+    snippet = generate_branding_snippet(prompt)
+    keywords = generate_keywords(prompt)
 
-    return {"Branding_snippet": snippet, "Keywords": keywords}
+    return {"snippet": snippet, "keywords": keywords}
 
 
-def validate_input_length(subject: str):
-    if len(subject) > MAX_SUBJECT_LENGTH:
+def validate_input_length(prompt: str):
+    if len(prompt) > MAX_PROMPT_LENGTH:
         raise HTTPException(
-            400, f"Input text too long, it must not exceed {MAX_SUBJECT_LENGTH} characters")
+            400, f"Input text too long, it must not exceed {MAX_PROMPT_LENGTH} characters")

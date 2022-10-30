@@ -25,7 +25,7 @@ interface FormProps {
       <>
         <div className="mb-6 text-slate-400">
           <p>
-            Tell me what your brand is about and I will generate copy and keywords
+            Tell me what your brand is about and I will generate branding snippets and keywords
             for you.
           </p>
         </div>
@@ -33,7 +33,7 @@ interface FormProps {
         <input
           className="p-2 w-full rounded-md focus:outline-teal-400 focus:outline text-slate-700"
           type="text"
-          placeholder="coffee"
+          placeholder="herbal tea"
           value={props.prompt}
           onChange={(e) => updatePromptValue(e.currentTarget.value)}
         ></input>
@@ -49,7 +49,7 @@ interface FormProps {
           onClick={props.onSubmit}
           disabled={props.isLoading || !isPromptValid}
         >
-          Submit
+          {props.isLoading ? "Loading..." : "Submit"}
         </button>
       </>
     );

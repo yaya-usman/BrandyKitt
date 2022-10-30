@@ -25,8 +25,8 @@ interface ResultsProps {
   
     const resultSection = (label: string, body: any) => {
       return (
-        <div className="bg-slate-700 p-4 my-3 rounded-md">
-          <div className="text-slate-400 text-sm font-bold mb-4">{label}</div>
+        <div className="bg-[#fff] p-4 my-3 rounded-md text-[#374151]">
+          <div className="text-sm font-bold mb-4">{label}</div>
           <div>{body}</div>
         </div>
       );
